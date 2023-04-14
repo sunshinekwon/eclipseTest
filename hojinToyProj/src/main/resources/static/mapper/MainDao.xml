@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hojinToyProj.main.MainDao">
+	<select id="getUserName" parameterType="String" resultType="String">
+		select name
+			from main_user_2023
+				where id = '${id}'
+	</select>
+
+
+	<select id="getUser" parameterType="String" resultType="com.example.hojinToyProj.HojinUserDetail">
+		select *
+			from main_user_2023
+				where id = '${id}'
+	
+	</select>
+	
+	
+	<select id="getMembers" resultType="com.example.hojinToyProj.HojinUserDetail">
+		select *
+			from main_user_2023
+	
+	</select>
+	<insert id="registerMember" parameterType="HashMap">
+		insert into main_user_2023 values ('${id}','${pw}','${address}','${name}')
+	</insert>
+</mapper>

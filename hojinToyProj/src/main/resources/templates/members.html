@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>pass</th>
+				<th>address</th>
+				<th>name</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="member : ${MemberList}">
+			<td th:text="${member.id}"></td>
+			<td th:text="${member.pw}"></td>
+			<td th:text="${member.address}"></td>
+			<td th:text="${member.name}"></td>
+		</tr>
+		</tbody>
+	</table>
+	----------------------------------<br>
+	<input type="text" id="addId"/><br>
+	<input type="text" id="addPw"/><br>
+	<input type="text" id="addAddress"/><br>
+	<input type="text" id="addName"/><br>
+	<button id="postMemeber">멤버 추가</button>
+	
+	<script>
+	
+	$("#postMemeber").on('click',function(){
+		var id = $("#addId").val();
+		var pw = $("#addPw").val();
+		var address = $("#addAddress").val();
+		var name = $("#addName").val();
+		
+		if(
+			id===null || id==='' ||
+			pw===null || pw==='' ||
+			address===null || address==='' || 
+			name===null || name===''
+		  ){
+			alert('모두 값을 입력하여 주십시오.');
+		}else{
+			$.ajax({
+				url : '/member',
+				method : 'POST',
+				data : {
+					'id' : id,
+					'pw' : pw,
+					'address' : address,
+					'name' : name
+				},
+				success : function(d){
+					
+					if(d === 'success'){
+						alert('멤버등록이 완료되었습니다.');
+					}else{
+						alert('멤버등록에 실패하였습니다.');
+					}
+					
+					
+				},
+				error : function(err){
+					alert('서버오류입니다.');
+				}
+				
+			});
+		}
+		
+	});
+	
+	</script>
+</body>
+</html>
